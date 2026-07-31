@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Frequency-Domain Deblurring}
+
+
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section*{Implementing and comparing Fourier-domain restoration methods against spatial-domain baselines for deblurring}
+
+\subsection*{Image source}
+
+Clean reference images are taken from \textbf{CBSD68} (68 colour natural images,
+$321 \times 481$), obtained from the benchmark collection at
+\url{https://github.com/majedelhelou/denoising_datasets}. CBSD68 is the standard colour
+image-denoising benchmark, derived from the Berkeley Segmentation Dataset (BSDS500), so the
+PSNR and SSIM values reported here are directly comparable with published restoration
+results. The collecting repository states that the datasets are gathered for convenience,
+with no ownership claimed.
+
+\subsection*{Degradation model}
+
+\begin{align}
+  g(x,y) &= h(x,y) * f(x,y) + n(x,y) \\
+  G(u,v) &= H(u,v)\,F(u,v) + N(u,v)
+\end{align}
+
+\noindent $f$ = sharp image, $h$ = blur kernel (PSF), $n$ = additive noise, $g$ = observed
+blurry image; capitals denote the corresponding 2-D discrete Fourier transforms, and
+$\hat{F}$ denotes the restored estimate of $F$.
+
+
+\subsection*{Inverse filter}
+
+\begin{align}
+  \hat{F}(u,v) &= \frac{G(u,v)}{H_{\varepsilon}(u,v)},
+  \qquad
+  H_{\varepsilon} =
+  \begin{cases}
+    H,          & |H| \ge \varepsilon, \\
+    \varepsilon, & |H| < \varepsilon,
+  \end{cases}
+  \qquad \varepsilon = 10^{-2}
+\end{align}
+
+\subsection*{Wiener filter}
+
+\begin{align}
+  \hat{F}(u,v) &= \frac{H^{*}(u,v)}{\left|H(u,v)\right|^{2} + K}\;G(u,v),
+  \qquad K = 10^{-2}
+\end{align}
+
+\noindent $H^{*}$ = complex conjugate; $K$ approximates the noise-to-signal power ratio
+$S_{n}/S_{f}$.
+
+
+\end{document}

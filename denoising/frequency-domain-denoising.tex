@@ -19,6 +19,18 @@
 
 \section*{Implementing and comparing Fourier-domain restoration methods against spatial-domain baselines for denoising}
 
+\subsection*{Image source}
 
+Clean reference images are taken from \textbf{CBSD68} (68 colour natural images,
+$321 \times 481$), obtained from the benchmark collection at
+\url{https://github.com/majedelhelou/denoising_datasets}. CBSD68 is the standard colour
+image-denoising benchmark, derived from the Berkeley Segmentation Dataset (BSDS500), so the
+PSNR and SSIM values reported here are directly comparable with published restoration
+results. The collecting repository states that the datasets are gathered for convenience,
+with no ownership claimed.
+
+The same 68 base images are used for the deblurring experiments, so that differences in the
+reported metrics reflect the degradation and the restoration method rather than the image
+content.
 
 \end{document}
