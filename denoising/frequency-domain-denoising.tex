@@ -1,21 +1,26 @@
-\documentclass[11pt]{article}
+\documentclass[10pt,twocolumn,letterpaper]{article}
 
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{hyperref}
+% CVPR 2026 author-kit style sheet (cvpr.sty, in this folder).  It already
+% provides times, xcolor, graphicx, amsmath, amssymb, booktabs, natbib,
+% caption and subcaption -- do not load those again, and do not load geometry,
+% which would override the page layout cvpr.sty sets.
+\usepackage{cvpr}
 
-\title{Frequency-Domain Denoising}
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
 
+\def\paperID{0000}
+\def\confName{CVPR}
+\def\confYear{2026}
 
+\title{\textbf{EECS 4422 Computer Vision}\\[4pt]
+       \large Frequency-Domain Denoising}
+\author{}
+\date{}
 
 \begin{document}
 
 \maketitle
-
-\newpage
 
 \section*{Implementing and comparing Fourier-domain restoration methods against spatial-domain baselines for denoising}
 
@@ -23,14 +28,6 @@
 
 Clean reference images are taken from \textbf{CBSD68} (68 colour natural images,
 $321 \times 481$), obtained from the benchmark collection at
-\url{https://github.com/majedelhelou/denoising_datasets}. CBSD68 is the standard colour
-image-denoising benchmark, derived from the Berkeley Segmentation Dataset (BSDS500), so the
-PSNR and SSIM values reported here are directly comparable with published restoration
-results. The collecting repository states that the datasets are gathered for convenience,
-with no ownership claimed.
-
-The same 68 base images are used for the deblurring experiments, so that differences in the
-reported metrics reflect the degradation and the restoration method rather than the image
-content.
+\url{https://github.com/majedelhelou/denoising_datasets}. 
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  31 JUL 2026 16:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  2 AUG 2026 13:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -9,8 +9,8 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (/usr/local/texlive/2026/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
-(/usr/local/texlive/2026/texmf-dist/tex/latex/base/size11.clo
-File: size11.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count275
 \c@section=\count276
@@ -23,32 +23,60 @@ File: size11.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
 \bibindent=\dimen148
+) (./cvpr.sty
+Package: cvpr 2026 LaTeX class for IEEE CVPR
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
 )
-(/usr/local/texlive/2026/texmf-dist/tex/latex/geometry/geometry.sty
-Package: geometry 2020/01/02 v5.9 Page Geometry
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks17
 )
-(/usr/local/texlive/2026/texmf-dist/tex/generic/iftex/ifvtex.sty
-Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2024/12/12 v1.0g TeX engine tests
-))
-\Gm@cnth=\count283
-\Gm@cntv=\count284
-\c@Gm@tempcnt=\count285
-\Gm@bindingoffset=\dimen149
-\Gm@wd@mp=\dimen150
-\Gm@odd@mp=\dimen151
-\Gm@even@mp=\dimen152
-\Gm@layoutwidth=\dimen153
-\Gm@layoutheight=\dimen154
-\Gm@layouthoffset=\dimen155
-\Gm@layoutvoffset=\dimen156
-\Gm@dimlist=\toks18
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+)
+\Gin@req@height=\dimen149
+\Gin@req@width=\dimen150
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
@@ -60,24 +88,24 @@ Package: amstext 2024/11/17 v2.01 AMS text
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks19
-\ex@=\dimen157
+\@emptytoks=\toks18
+\ex@=\dimen151
 ))
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen158
+\pmbraise@=\dimen152
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count286
+\inf@bad=\count283
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count287
-\leftroot@=\count288
+\uproot@=\count284
+\leftroot@=\count285
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count289
-\DOTSCASE@=\count290
+\classnum@=\count286
+\DOTSCASE@=\count287
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
@@ -87,34 +115,34 @@ LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
 LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen159
+\big@size=\dimen153
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count291
+\macc@depth=\count288
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count292
+\c@MaxMatrixCols=\count289
 \dotsspace@=\muskip17
-\c@parentequation=\count293
-\dspbrk@lvl=\count294
-\tag@help=\toks20
-\row@=\count295
-\column@=\count296
-\maxfields@=\count297
-\andhelp@=\toks21
-\eqnshift@=\dimen160
-\alignsep@=\dimen161
-\tagshift@=\dimen162
-\tagwidth@=\dimen163
-\totwidth@=\dimen164
-\lineht@=\dimen165
-\@envbody=\toks22
+\c@parentequation=\count290
+\dspbrk@lvl=\count291
+\tag@help=\toks19
+\row@=\count292
+\column@=\count293
+\maxfields@=\count294
+\andhelp@=\toks20
+\eqnshift@=\dimen154
+\alignsep@=\dimen155
+\tagshift@=\dimen156
+\tagwidth@=\dimen157
+\totwidth@=\dimen158
+\lineht@=\dimen159
+\@envbody=\toks21
 \multlinegap=\skip52
 \multlinetaggap=\skip53
-\mathdisplay@stack=\toks23
+\mathdisplay@stack=\toks22
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
 )
@@ -129,49 +157,106 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-)
-(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 106.
-
-(/usr/local/texlive/2026/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
-))
-\Gin@req@height=\dimen166
-\Gin@req@width=\dimen167
-)
 (/usr/local/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen168
-\lightrulewidth=\dimen169
-\cmidrulewidth=\dimen170
-\belowrulesep=\dimen171
-\belowbottomsep=\dimen172
-\aboverulesep=\dimen173
-\abovetopsep=\dimen174
-\cmidrulesep=\dimen175
-\cmidrulekern=\dimen176
-\defaultaddspace=\dimen177
-\@cmidla=\count298
-\@cmidlb=\count299
-\@aboverulesep=\dimen178
-\@belowrulesep=\dimen179
-\@thisruleclass=\count300
-\@lastruleclass=\count301
-\@thisrulewidth=\dimen180
+\heavyrulewidth=\dimen160
+\lightrulewidth=\dimen161
+\cmidrulewidth=\dimen162
+\belowrulesep=\dimen163
+\belowbottomsep=\dimen164
+\aboverulesep=\dimen165
+\abovetopsep=\dimen166
+\cmidrulesep=\dimen167
+\cmidrulekern=\dimen168
+\defaultaddspace=\dimen169
+\@cmidla=\count295
+\@cmidlb=\count296
+\@aboverulesep=\dimen170
+\@belowrulesep=\dimen171
+\@thisruleclass=\count297
+\@lastruleclass=\count298
+\@thisrulewidth=\dimen172
 )
+(/usr/local/texlive/2026/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip54
+\bibsep=\skip55
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count299
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/silence/silence.sty
+Package: silence 2012/07/02 v1.5b Selective filtering of warnings and error mes
+sages
+\sl@Save=\count300
+\sl@StateNumber=\count301
+\sl@MessageCount=\count302
+\sl@Casualties=\count303
+\sl@Filter=\toks23
+\sl@Message=\toks24
+\sl@UnexpandedMessage=\toks25
+\sl@Mess@ge=\toks26
+\sl@WarningCount=\count304
+\sl@WarningNumber=\count305
+\sl@WarningCasualties=\count306
+\sl@TempBOW=\toks27
+\sl@BankOfWarnings=\toks28
+LaTeX Info: Redefining \GenericWarning on input line 433.
+\sl@ErrorCount=\count307
+\sl@ErrorNumber=\count308
+\sl@ErrorCasualties=\count309
+\sl@TempBOE=\toks29
+\sl@BankOfErrors=\toks30
+LaTeX Info: Redefining \GenericError on input line 601.
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count310
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen173
+\captionmargin=\dimen174
+\caption@leftmargin=\dimen175
+\caption@rightmargin=\dimen176
+\caption@width=\dimen177
+\caption@indent=\dimen178
+\caption@parindent=\dimen179
+\caption@hangindent=\dimen180
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count311
+\c@continuedfloat=\count312
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count313
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count314
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip18
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+CVPR 8.5 x 11-Inch Proceedings Style `cvpr.sty'.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\labelindent=\skip56
+\enit@outerparindent=\dimen181
+\enit@toks=\toks31
+\enit@inbox=\box55
+\enit@count@id=\count315
+\enitdp@description=\count316
+))
 (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2026-01-29 v7.01p Hypertext links for LaTeX
 
+(/usr/local/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+)
 (/usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )
@@ -210,19 +295,15 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
  (/usr/local/texlive/2026/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count302
-)
-(/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count303
+\c@section@level=\count317
 )
 (/usr/local/texlive/2026/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen181
-\Hy@linkcounter=\count304
-\Hy@pagecounter=\count305
+\@linkdim=\dimen182
+\Hy@linkcounter=\count318
+\Hy@pagecounter=\count319
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2026-01-29 v7.01p Hyperref: PDFDocEncoding definition (HO)
@@ -232,181 +313,431 @@ Now handling font encoding PD1 ...
 (/usr/local/texlive/2026/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count306
+\Hy@SavedSpaceFactor=\count320
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2026-01-29 v7.01p Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
+Package hyperref Info: Option `breaklinks' set `true' on input line 4072.
+Package hyperref Info: Option `colorlinks' set `true' on input line 4072.
 Package hyperref Info: Hyper figures OFF on input line 4201.
 Package hyperref Info: Link nesting OFF on input line 4206.
 Package hyperref Info: Hyper index ON on input line 4209.
 Package hyperref Info: Plain pages OFF on input line 4216.
-Package hyperref Info: Backreferencing OFF on input line 4221.
+Package hyperref Info: Backreferencing ON on input line 4219.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4468.
-\c@Hy@tempcnt=\count307
 
-(/usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty
-\Urlmuskip=\muskip18
-Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-)
-LaTeX Info: Redefining \url on input line 4807.
-\XeTeXLinkMargin=\dimen182
-
-(/usr/local/texlive/2026/texmf-dist/tex/generic/bitset/bitset.sty
-Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-
-(/usr/local/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
-)
-))
-\Fld@menulength=\count308
-\Field@Width=\dimen183
-\Fld@charsize=\dimen184
-Package hyperref Info: Hyper figures OFF on input line 6084.
-Package hyperref Info: Link nesting OFF on input line 6089.
-Package hyperref Info: Hyper index ON on input line 6092.
-Package hyperref Info: backreferencing OFF on input line 6099.
-Package hyperref Info: Link coloring OFF on input line 6104.
-Package hyperref Info: Link coloring with OCG OFF on input line 6109.
-Package hyperref Info: PDF/A mode OFF on input line 6114.
-\Hy@abspage=\count309
-\c@Item=\count310
-\c@Hfootnote=\count311
-)
-Package hyperref Info: Driver (autodetected): hpdftex.
-
-(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2026-01-29 v7.01p Hyperref driver for pdfTeX
-\Fld@listcount=\count312
-\c@bookmark@seq@number=\count313
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/backref.sty
+Package: backref 2025-06-21 v1.45 Bibliographical back referencing
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
 
 (/usr/local/texlive/2026/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
+))
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 84.
+))
+\c@Hy@tempcnt=\count321
+LaTeX Info: Redefining \url on input line 4807.
+\XeTeXLinkMargin=\dimen183
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 )
-\Hy@SectionHShift=\skip54
+\Fld@menulength=\count322
+\Field@Width=\dimen184
+\Fld@charsize=\dimen185
+Package hyperref Info: Hyper figures OFF on input line 6084.
+Package hyperref Info: Link nesting OFF on input line 6089.
+Package hyperref Info: Hyper index ON on input line 6092.
+Package hyperref Info: backreferencing ON on input line 6097.
+Package hyperref Info: Link coloring ON on input line 6102.
+Package hyperref Info: Link coloring with OCG OFF on input line 6109.
+Package hyperref Info: PDF/A mode OFF on input line 6114.
+\Hy@abspage=\count323
+\c@Item=\count324
+\c@Hfootnote=\count325
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2026-01-29 v7.01p Hyperref driver for pdfTeX
+\Fld@listcount=\count326
+\c@bookmark@seq@number=\count327
+\Hy@SectionHShift=\skip57
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/cleveref/cleveref.sty
+Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
+Package cleveref Info: `hyperref' support loaded on input line 2370.
+LaTeX Info: Redefining \cref on input line 2370.
+LaTeX Info: Redefining \Cref on input line 2370.
+LaTeX Info: Redefining \crefrange on input line 2370.
+LaTeX Info: Redefining \Crefrange on input line 2370.
+LaTeX Info: Redefining \cpageref on input line 2370.
+LaTeX Info: Redefining \Cpageref on input line 2370.
+LaTeX Info: Redefining \cpagerefrange on input line 2370.
+LaTeX Info: Redefining \Cpagerefrange on input line 2370.
+LaTeX Info: Redefining \labelcref on input line 2370.
+LaTeX Info: Redefining \labelcpageref on input line 2370.
+Package cleveref Info: always capitalise cross-reference names on input line 78
+30.
+Package cleveref Info: always capitalise cross-reference names on input line 78
+52.
+)
+==> First Aid for cleveref.sty applied!
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
+6.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/local/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count314
+\l__color_backend_stack_int=\count328
 )
 (./frequency-domain-deblurring.aux)
 \openout1 = `frequency-domain-deblurring.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 14.
-LaTeX Font Info:    ... okay on input line 14.
-
-*geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
-*geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
-* paper: <default>
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
-* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=469.75502pt
-* \textheight=650.43001pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=-37.0pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=11.0pt
-* \footskip=30.0pt
-* \marginparwidth=59.0pt
-* \marginparsep=10.0pt
-* \columnsep=10.0pt
-* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
 
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count315
-\scratchdimen=\dimen185
-\scratchbox=\box55
-\nofMPsegments=\count316
-\nofMParguments=\count317
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count318
-\MPscratchDim=\dimen186
-\MPnumerator=\count319
-\makeMPintoPDFobject=\count320
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count329
+\scratchdimen=\dimen186
+\scratchbox=\box56
+\nofMPsegments=\count330
+\nofMParguments=\count331
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count332
+\MPscratchDim=\dimen187
+\MPnumerator=\count333
+\makeMPintoPDFobject=\count334
+\everyMPtoPDFconversion=\toks33
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 14.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
 
-(./frequency-domain-deblurring.out) (./frequency-domain-deblurring.out)
+ABD: EveryShipout initializing macros
+Package backref Info: ** backref set up for natbib ** on input line 26.
+Package hyperref Info: Link coloring ON on input line 26.
+ (./frequency-domain-deblurring.out)
+(./frequency-domain-deblurring.out)
 \@outlinefile=\write3
 \openout3 = `frequency-domain-deblurring.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 17.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 17.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 3
+6.
 
-LaTeX Warning: No \author given.
+(/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [1{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr
+/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
-[1
 
-{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (23.25575pt too wide) in paragraph at lines 24--31
-\OT1/cmr/m/n/10.95 from the bench-mark col-lec-tion at []$\OT1/cmtt/m/n/10.95 h
-ttps : / / github . com / majedelhelou / denoising _ datasets$[]\OT1/cmr/m/n/10
-.95 . CBSD68
- []
+] [2] [3] (./results-table.tex)
 
-[2] (./frequency-domain-deblurring.aux)
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 322.
+See the caption package documentation for explanation.
+
+<results.pdf, id=89, 650.43pt x 274.626pt>
+File: results.pdf Graphic file (type pdf)
+<use results.pdf>
+Package pdftex.def Info: results.pdf  used on input line 328.
+(pdftex.def)             Requested size: 387.54726pt x 163.63287pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 330.
+See the caption package documentation for explanation.
+
+[4
+
+
+ <./results.pdf>] (./sample-panels.tex
+<../blurred/sigma_2/3096.png, id=159, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2/3096.png Graphic file (type png)
+<use ../blurred/sigma_2/3096.png>
+Package pdftex.def Info: ../blurred/sigma_2/3096.png  used on input line 3.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/inverse/3096.png, id=160, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/inverse/3096.png Graphic file (type png)
+<use ../deblurred-imgs/inverse/3096.png>
+Package pdftex.def Info: ../deblurred-imgs/inverse/3096.png  used on input line
+ 8.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener/3096.png, id=161, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener/3096.png Graphic file (type png)
+<use ../deblurred-imgs/wiener/3096.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener/3096.png  used on input line 
+13.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener-oracle/3096.png, id=162, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener-oracle/3096.png Graphic file (type png)
+<use ../deblurred-imgs/wiener-oracle/3096.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/3096.png  used on inpu
+t line 18.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/cls-laplacian/3096.png, id=163, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/cls-laplacian/3096.png Graphic file (type png)
+<use ../deblurred-imgs/cls-laplacian/3096.png>
+Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/3096.png  used on inpu
+t line 23.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../../CBSD68/3096.png, id=164, 482.80376pt x 322.20375pt>
+File: ../../CBSD68/3096.png Graphic file (type png)
+<use ../../CBSD68/3096.png>
+Package pdftex.def Info: ../../CBSD68/3096.png  used on input line 28.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 32.
+See the caption package documentation for explanation.
+
+[5
+
+ <../blurred/sigma_2/3096.png (PNG copy)> <../deblurred-imgs/inverse/3096.png (
+PNG copy)> <../deblurred-imgs/wiener/3096.png (PNG copy)> <../deblurred-imgs/wi
+ener-oracle/3096.png (PNG copy)> <../deblurred-imgs/cls-laplacian/3096.png (PNG
+ copy)> <../../CBSD68/3096.png (PNG copy)>]
+<../blurred/sigma_2/12084.png, id=171, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2/12084.png Graphic file (type png)
+<use ../blurred/sigma_2/12084.png>
+Package pdftex.def Info: ../blurred/sigma_2/12084.png  used on input line 38.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/inverse/12084.png, id=172, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/inverse/12084.png Graphic file (type png)
+<use ../deblurred-imgs/inverse/12084.png>
+Package pdftex.def Info: ../deblurred-imgs/inverse/12084.png  used on input lin
+e 43.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener/12084.png, id=173, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener/12084.png Graphic file (type png)
+<use ../deblurred-imgs/wiener/12084.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener/12084.png  used on input line
+ 48.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener-oracle/12084.png, id=174, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener-oracle/12084.png Graphic file (type png)
+<use ../deblurred-imgs/wiener-oracle/12084.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/12084.png  used on inp
+ut line 53.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/cls-laplacian/12084.png, id=175, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/cls-laplacian/12084.png Graphic file (type png)
+<use ../deblurred-imgs/cls-laplacian/12084.png>
+Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/12084.png  used on inp
+ut line 58.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../../CBSD68/12084.png, id=176, 482.80376pt x 322.20375pt>
+File: ../../CBSD68/12084.png Graphic file (type png)
+<use ../../CBSD68/12084.png>
+Package pdftex.def Info: ../../CBSD68/12084.png  used on input line 63.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 67.
+See the caption package documentation for explanation.
+
+[6
+
+ <../blurred/sigma_2/12084.png (PNG copy)> <../deblurred-imgs/inverse/12084.png
+ (PNG copy)> <../deblurred-imgs/wiener/12084.png (PNG copy)> <../deblurred-imgs
+/wiener-oracle/12084.png (PNG copy)> <../deblurred-imgs/cls-laplacian/12084.png
+ (PNG copy)> <../../CBSD68/12084.png (PNG copy)>]
+<../blurred/sigma_2/16077.png, id=182, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2/16077.png Graphic file (type png)
+<use ../blurred/sigma_2/16077.png>
+Package pdftex.def Info: ../blurred/sigma_2/16077.png  used on input line 73.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/inverse/16077.png, id=183, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/inverse/16077.png Graphic file (type png)
+<use ../deblurred-imgs/inverse/16077.png>
+Package pdftex.def Info: ../deblurred-imgs/inverse/16077.png  used on input lin
+e 78.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener/16077.png, id=184, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener/16077.png Graphic file (type png)
+<use ../deblurred-imgs/wiener/16077.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener/16077.png  used on input line
+ 83.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener-oracle/16077.png, id=185, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener-oracle/16077.png Graphic file (type png)
+<use ../deblurred-imgs/wiener-oracle/16077.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/16077.png  used on inp
+ut line 88.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/cls-laplacian/16077.png, id=186, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/cls-laplacian/16077.png Graphic file (type png)
+<use ../deblurred-imgs/cls-laplacian/16077.png>
+Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/16077.png  used on inp
+ut line 93.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../../CBSD68/16077.png, id=187, 482.80376pt x 322.20375pt>
+File: ../../CBSD68/16077.png Graphic file (type png)
+<use ../../CBSD68/16077.png>
+Package pdftex.def Info: ../../CBSD68/16077.png  used on input line 98.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 102.
+See the caption package documentation for explanation.
+
+[7
+
+ <../blurred/sigma_2/16077.png (PNG copy)> <../deblurred-imgs/inverse/16077.png
+ (PNG copy)> <../deblurred-imgs/wiener/16077.png (PNG copy)> <../deblurred-imgs
+/wiener-oracle/16077.png (PNG copy)> <../deblurred-imgs/cls-laplacian/16077.png
+ (PNG copy)> <../../CBSD68/16077.png (PNG copy)>]
+<../blurred/sigma_2/19021.png, id=194, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2/19021.png Graphic file (type png)
+<use ../blurred/sigma_2/19021.png>
+Package pdftex.def Info: ../blurred/sigma_2/19021.png  used on input line 108.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/inverse/19021.png, id=195, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/inverse/19021.png Graphic file (type png)
+<use ../deblurred-imgs/inverse/19021.png>
+Package pdftex.def Info: ../deblurred-imgs/inverse/19021.png  used on input lin
+e 113.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener/19021.png, id=196, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener/19021.png Graphic file (type png)
+<use ../deblurred-imgs/wiener/19021.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener/19021.png  used on input line
+ 118.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener-oracle/19021.png, id=197, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener-oracle/19021.png Graphic file (type png)
+<use ../deblurred-imgs/wiener-oracle/19021.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/19021.png  used on inp
+ut line 123.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/cls-laplacian/19021.png, id=198, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/cls-laplacian/19021.png Graphic file (type png)
+<use ../deblurred-imgs/cls-laplacian/19021.png>
+Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/19021.png  used on inp
+ut line 128.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../../CBSD68/19021.png, id=199, 482.80376pt x 322.20375pt>
+File: ../../CBSD68/19021.png Graphic file (type png)
+<use ../../CBSD68/19021.png>
+Package pdftex.def Info: ../../CBSD68/19021.png  used on input line 133.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 137.
+See the caption package documentation for explanation.
+
+[8
+
+ <../blurred/sigma_2/19021.png (PNG copy)> <../deblurred-imgs/inverse/19021.png
+ (PNG copy)> <../deblurred-imgs/wiener/19021.png (PNG copy)> <../deblurred-imgs
+/wiener-oracle/19021.png (PNG copy)> <../deblurred-imgs/cls-laplacian/19021.png
+ (PNG copy)> <../../CBSD68/19021.png (PNG copy)>]
+<../blurred/sigma_2/24077.png, id=206, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2/24077.png Graphic file (type png)
+<use ../blurred/sigma_2/24077.png>
+Package pdftex.def Info: ../blurred/sigma_2/24077.png  used on input line 143.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/inverse/24077.png, id=207, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/inverse/24077.png Graphic file (type png)
+<use ../deblurred-imgs/inverse/24077.png>
+Package pdftex.def Info: ../deblurred-imgs/inverse/24077.png  used on input lin
+e 148.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener/24077.png, id=208, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener/24077.png Graphic file (type png)
+<use ../deblurred-imgs/wiener/24077.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener/24077.png  used on input line
+ 153.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/wiener-oracle/24077.png, id=209, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/wiener-oracle/24077.png Graphic file (type png)
+<use ../deblurred-imgs/wiener-oracle/24077.png>
+Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/24077.png  used on inp
+ut line 158.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../deblurred-imgs/cls-laplacian/24077.png, id=210, 482.80376pt x 322.20375pt>
+File: ../deblurred-imgs/cls-laplacian/24077.png Graphic file (type png)
+<use ../deblurred-imgs/cls-laplacian/24077.png>
+Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/24077.png  used on inp
+ut line 163.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+<../../CBSD68/24077.png, id=211, 482.80376pt x 322.20375pt>
+File: ../../CBSD68/24077.png Graphic file (type png)
+<use ../../CBSD68/24077.png>
+Package pdftex.def Info: ../../CBSD68/24077.png  used on input line 168.
+(pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 172.
+See the caption package documentation for explanation.
+
+) [9
+
+ <../blurred/sigma_2/24077.png (PNG copy)> <../deblurred-imgs/inverse/24077.png
+ (PNG copy)> <../deblurred-imgs/wiener/24077.png (PNG copy)> <../deblurred-imgs
+/wiener-oracle/24077.png (PNG copy)> <../deblurred-imgs/cls-laplacian/24077.png
+ (PNG copy)> <../../CBSD68/24077.png (PNG copy)>]
+(./frequency-domain-deblurring.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -416,29 +747,32 @@ nged.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 10186 strings out of 467525
- 154208 string characters out of 5418983
- 573599 words of memory out of 5000000
- 38976 multiletter control sequences out of 15000+600000
- 635601 words of font info for 70 fonts, out of 8000000 for 9000
+ 14943 strings out of 467525
+ 250747 string characters out of 5418983
+ 726330 words of memory out of 5000000
+ 43590 multiletter control sequences out of 15000+600000
+ 654015 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,14n,79p,253b,448s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
-r/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
-cal/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loca
-l/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/t
-exlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
-xlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texl
-ive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on frequency-domain-deblurring.pdf (2 pages, 132758 bytes).
+ 90i,14n,98p,317b,452s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
+usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
+r/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/
+local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/lo
+cal/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local
+/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/te
+xlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
+live/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texli
+ve/2026/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/t
+exlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2
+026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/texmf-
+dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts
+/type1/urw/times/utmri8a.pfb>
+Output written on frequency-domain-deblurring.pdf (9 pages, 8206067 bytes).
 PDF statistics:
- 89 PDF objects out of 1000 (max. 8388607)
- 60 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 299 PDF objects out of 1000 (max. 8388607)
+ 175 compressed objects within 2 object streams
+ 77 named destinations out of 1000 (max. 500000)
+ 156 words of extra memory for PDF output out of 10000 (max. 10000000)
 

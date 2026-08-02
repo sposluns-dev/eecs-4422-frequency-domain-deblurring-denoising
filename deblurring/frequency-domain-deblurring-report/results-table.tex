@@ -1,0 +1,12 @@
+\begin{tabular}{lrrrr}
+\toprule
+Method & PSNR (dB) & $\Delta$ PSNR & SSIM & ms/image \\
+\midrule
+Blurry input & 24.29 & --- & 0.6703 & --- \\
+\midrule
+Inverse filter & 19.50 & -4.79 & 0.3454 & 24 \\
+Wiener filter & 27.84 & +3.56 & 0.8242 & 24 \\
+Wiener filter (oracle) & 28.19 & +3.90 & 0.8259 & 36 \\
+Constrained least squares & 27.84 & +3.55 & 0.8263 & 27 \\
+\bottomrule
+\end{tabular}
