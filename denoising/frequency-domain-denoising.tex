@@ -13,9 +13,14 @@
 \def\confName{CVPR}
 \def\confYear{2026}
 
+% on a float-only page, stack floats from the top instead of spreading them
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
 \title{\textbf{EECS 4422 Computer Vision}\\[4pt]
        \large Frequency-Domain Denoising}
-\author{}
+\author{Thien Nguyen - 219183821 - thienyu@my.yorku.ca}
 \date{}
 
 \begin{document}
@@ -28,6 +33,133 @@
 
 Clean reference images are taken from \textbf{CBSD68} (68 colour natural images,
 $321 \times 481$), obtained from the benchmark collection at
-\url{https://github.com/majedelhelou/denoising_datasets}. 
+\url{https://github.com/majedelhelou/denoising_datasets}.
 
+\subsection*{Degradation model --- Synthetically noising the input images}
+
+Following the course notation, $g$ denotes the original image and $f$ the degraded
+observation.  Unlike the deblurring half there is no blur kernel ($H = 1$):
+\begin{align}
+  f(x,y) &= g(x,y) + n(x,y) \\
+  F(u,v) &= G(u,v) + N(u,v)
+\end{align}
+
+\noindent $g$ = original (clean) image, $n$ = additive white Gaussian noise of known
+standard deviation $\sigma$, $f$ = observed noisy image; capitals denote the
+corresponding 2-D discrete Fourier transforms, and $\hat{G}$ denotes the restored
+estimate of $G$.
+
+\noindent Noise is synthesised in floating-point intensity units with
+$\sigma = 25/255$, then written to 8-bit PNG (so a small quantisation term is also
+present when restoring from disk).
+
+\newpage
+\subsection*{Ideal low-pass filter}
+
+Noise is broadband while natural-image energy concentrates at low frequencies, so a
+first restoration keeps only a disk of radius $D_0$ in the Fourier plane:
+\begin{align}
+  H(u,v) &=
+  \begin{cases}
+    1, & D(u,v) \le D_0, \\
+    0, & D(u,v) > D_0,
+  \end{cases}
+  \qquad
+  \hat{G} = H\,F,
+  \qquad D_0 = 0.08
+\end{align}
+
+\noindent where $D(u,v)$ is the distance from DC in cycles per sample.  The brick-wall
+cutoff produces Gibbs ringing around edges.
+
+\subsubsection*{Steps}
+
+\begin{enumerate}
+  \item Build the radial distance grid $D(u,v)$ with DC at the spectrum centre.
+  \item Form $H = [D \le D_0]$.
+  \item For each colour channel: $F = \mathcal{F}\{f\}$,
+        $\hat{G} = H F$,
+        $\hat{g} = \operatorname{Re}\,\mathcal{F}^{-1}\{\hat{G}\}$.
+\end{enumerate}
+
+\subsection*{Butterworth and Gaussian low-pass filters}
+
+A Butterworth filter of order $n$ softens the cutoff:
+\begin{align}
+  H(u,v) &= \frac{1}{1 + \bigl(D(u,v)/D_0\bigr)^{2n}},
+  \qquad n = 2,\ D_0 = 0.08
+\end{align}
+
+\noindent A Gaussian low-pass has no ringing at all:
+\begin{align}
+  H(u,v) &= \exp\!\left(-\frac{D(u,v)^{2}}{2 D_0^{2}}\right)
+\end{align}
+
+\noindent Both are applied exactly as the ideal filter: multiply $F$ by $H$, then
+invert.  They are the Fourier-domain counterparts of ordinary smoothing, and give a
+controlled comparison against the spatial Gaussian baseline below.
+
+\newpage
+\subsection*{Wiener filter ($H = 1$)}
+
+With no blur the Wiener solution is a per-frequency shrink by the noise-to-signal
+power ratio:
+\begin{align}
+  \hat{G}(u,v) &= \frac{P_g(u,v)}{P_g(u,v) + P_n(u,v)}\,F(u,v),
+  \qquad P_n = MN\sigma^{2}
+\end{align}
+
+\noindent $P_g$ is unknown, so the practical filter estimates it from the noisy
+periodogram, $P_g \approx \max(|F|^{2} - P_n,\ 0)$.  We also report an
+\emph{oracle} that uses the true $|G|^{2}$; that score is an upper bound, not an
+achievable method (same role as in the deblurring report).
+
+\subsection*{Spatial-domain baselines}
+
+Three pixel-domain denoisers are run on the same noisy inputs:
+
+\begin{itemize}
+  \item \textbf{Gaussian smoothing} --- isotropic blur with $\sigma_s = 1$ px.
+  \item \textbf{Median filter} --- $3\times 3$ disk median per channel.
+  \item \textbf{Bilateral filter} --- spatial $\sigma_s = 2$ px and tonal
+        $\sigma_c = 0.08$, so edges are preserved better than a plain Gaussian.
+\end{itemize}
+
+\noindent These are the spatial baselines the project brief asks for: the Fourier
+methods above are compared against them on PSNR, SSIM and runtime.
+
+\newpage
+\clearpage
+\onecolumn
+
+\subsection*{Results}
+
+All methods are run over the same 68 CBSD68 images, corrupted with
+$\sigma = 25/255$ Gaussian noise and written to 8-bit PNG.  Each restored image is
+clipped to $[0,1]$ before scoring.  Blue bars in the chart are Fourier-domain
+methods; green bars are spatial baselines; the hatched bar is the oracle Wiener.
+
+\vspace{1em}
+
+\begin{center}
+  \input{results-table}
+  \captionof{table}{Mean PSNR and SSIM over 68 images, $\sigma = 25/255$.
+  Asterisk marks the oracle (uses ground-truth $P_g$).}
+\end{center}
+
+\vspace{1em}
+
+\begin{center}
+  \includegraphics[width=0.92\linewidth]{results.pdf}
+  \captionof{figure}{The same figures.  Hatched = oracle Wiener.}
+\end{center}
+
+\clearpage
+\subsection*{Sample restorations}
+
+\noindent One grid per image, each cell captioned with its own PSNR and SSIM against
+the ground truth.  Generated by \texttt{save\_panels()}, so the scores below cannot
+drift from those in the table.
+
+\input{sample-panels}
 \end{document}

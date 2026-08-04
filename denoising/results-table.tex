@@ -1,0 +1,16 @@
+\begin{tabular}{lrrrr}
+\toprule
+Method & PSNR (dB) & $\Delta$ PSNR & SSIM & ms/image \\
+\midrule
+Noisy input & 20.54 & --- & 0.4174 & --- \\
+\midrule
+Ideal LPF & 22.71 & +2.17 & 0.5312 & 13 \\
+Butterworth LPF & 23.43 & +2.90 & 0.6055 & 14 \\
+Gaussian LPF & 23.87 & +3.33 & 0.6341 & 14 \\
+Wiener filter & 24.26 & +3.72 & 0.5512 & 14 \\
+Wiener filter (oracle) * & 27.36 & +6.82 & 0.7431 & 20 \\
+Gaussian (spatial) & 25.96 & +5.43 & 0.6913 & 2 \\
+Median filter & 24.28 & +3.75 & 0.5552 & 12 \\
+Bilateral filter & 25.94 & +5.41 & 0.6847 & 105 \\
+\bottomrule
+\end{tabular}
