@@ -6,34 +6,46 @@ Self-contained -- no imports from sibling modules.
 Pipeline
 --------
     1. load a clean CBSD68 image
-    2. blur it with a known Gaussian          (write to blurred/)
-    3. restore by dividing in the Fourier domain (write to deblurred-imgs/)
-    4. write side-by-side comparisons         (write to Combined/)
+    2. degrade it: blur with a known Gaussian, then add white Gaussian noise
+    3. restore in the Fourier domain            (write to deblurred-imgs/)
+    4. write side-by-side comparisons           (write to Combined/)
 
-Everything is parameterised by sigma alone.  The Gaussian's transfer function
-H(u,v) is built directly from sigma, and the same H is used both to blur and to
-restore, so the degradation matches the restoration model exactly:
+The degradation has two parameters: sigma, the width of the blur, and sigma_n,
+the standard deviation of the noise.  The Gaussian's transfer function H(u,v) is
+built directly from sigma, and the same H is used both to blur and to restore,
+so the degradation matches the restoration model exactly:
 
-    F = H . G        ->        f = ifft2( H * fft2(g) )
+    F = H . G + N    ->    f = ifft2( H * fft2(g) ) + n,   n ~ N(0, sigma_n^2)
 
 The blur is therefore a *circular* convolution.  Zero- or reflection-padded
 convolution would introduce boundary behaviour that no frequency-domain filter
 can undo.
 
+Degradation happens in memory, in float64, and the restoration filters are given
+that float array directly.  Nothing is quantised on the way in, so the only
+perturbation present is the noise the model says is there -- sigma_n is the
+whole of n(x,y).  The PNGs written to blurred/ are for the report's figures.
+
+Noise levels are given on the 0-255 scale, as the denoising literature quotes
+them (sigma_n = 15, 25, 50 are the usual CBSD68 operating points); internally
+they are divided by 255 to match the [0, 1] float images.
+
 Usage
 -----
-    python3 degrade-deblur.py blur                      # write blurred images
-    python3 degrade-deblur.py deblur                    # blur -> inverse filter
+    python3 degrade-deblur.py blur                      # write degraded images
+    python3 degrade-deblur.py deblur                    # degrade -> restore
+    python3 degrade-deblur.py deblur --sigma-n 25
     python3 degrade-deblur.py deblur --eps 0.1
-    python3 degrade-deblur.py deblur --source memory    # skip the 8-bit round trip
     python3 degrade-deblur.py sweep                     # epsilon sweep
     python3 degrade-deblur.py test                      # correctness checks
 
-Common options:  --sigma 2.0   --limit N   --no-save   --no-combined
+Common options:  --sigma 2.0   --sigma-n 15   --limit N   --no-save
+                 --no-combined
 """
 
 import argparse
 import time
+import zlib
 from pathlib import Path
 
 import numpy as np
@@ -48,6 +60,10 @@ DATA_DIR      = HERE.parent / "CBSD68"      # clean reference images
 BLURRED_DIR   = HERE / "blurred"            # synthetically blurred inputs
 DEBLURRED_DIR = HERE / "deblurred-imgs"     # one subfolder per method
 COMBINED_DIR  = HERE / "Combined"           # side-by-side strips
+
+# Noise is quoted on the 0-255 scale in the report and divided by 255 here.
+SIGMA_N_DEFAULT = 15.0                      # the usual CBSD68 operating point
+NOISE_SEED      = 4422                      # fixed, so every run is reproducible
 
 
 # ===========================================================================
@@ -68,6 +84,11 @@ def save_image(img, path):
 def list_images(data_dir=DATA_DIR):
     """All clean image paths, sorted."""
     return sorted(Path(data_dir).glob("*.png"))
+
+
+def blurred_dir(sigma, sigma_n):
+    """Where the degraded PNGs for one (blur, noise) setting live."""
+    return BLURRED_DIR / f"sigma_{sigma:g}_n{sigma_n * 255:g}"
 
 
 # ===========================================================================
@@ -137,11 +158,30 @@ Naming convention used throughout, following the course notes:
 # degradation
 # ===========================================================================
 
-def blur_image(sharp, sigma):
+def image_rng(name):
     """
-    Blur `sharp` with a Gaussian of width `sigma`.
+    The noise generator for one image, seeded from its file name.
 
-        F = H . G
+    Every stage that needs the degraded version of an image draws its noise from
+    here, so the array the filters see, the PNG written to blurred/, and the
+    panel in the report are all the same realisation of n.
+    """
+    return np.random.default_rng(NOISE_SEED + zlib.crc32(str(name).encode()))
+
+
+def blur_image(sharp, sigma, sigma_n=0.0, rng=None):
+    """
+    Degrade `sharp`: blur with a Gaussian of width `sigma`, then add white
+    Gaussian noise of standard deviation `sigma_n`.
+
+        F = H . G + N     ->     f = ifft2(H . G) + n
+
+    `sigma_n` is in [0, 1] image units; divide the 0-255 figure by 255 first.
+
+    The blurred image is clipped to [0, 1] -- a non-negative unit-sum kernel
+    cannot leave that range, so this only removes float round-off -- and the
+    noise is added afterwards and left unclipped, so n stays exactly Gaussian
+    and the degradation is exactly the model the filters are derived from.
     """
     h = gaussian_h(sigma, sharp.shape[:2])      # kernel, pixels
     H = fft2(h)                                 # kernel, frequencies
@@ -149,38 +189,51 @@ def blur_image(sharp, sigma):
     out = np.empty_like(sharp)
     for c in range(sharp.shape[2]):
         g = sharp[:, :, c]                      # original channel, pixels
-        G = fft2(g)                             # -> frequencies
+        G = fft2(g)                             # apply the Fourier transform
         F = H * G                               # apply the blur
         f = np.real(ifft2(F))                   # -> pixels
         out[:, :, c] = f
 
-    return np.clip(out, 0.0, 1.0)
+    out = np.clip(out, 0.0, 1.0)
+
+    if sigma_n > 0.0:
+        if rng is None:
+            rng = np.random.default_rng(NOISE_SEED)
+        out = out + rng.normal(0.0, sigma_n, size=out.shape)   # adding n(x,y)
+
+    return out
 
 
-def degrade(path, sigma):
-    """Load the image at `path` and blur it.  Returns (blurry, sharp)."""
+def degrade(path, sigma, sigma_n=0.0):
+    """Load the image at `path` and degrade it.  Returns (degraded, sharp)."""
     sharp = load_image(path)
-    return blur_image(sharp, sigma), sharp
+    return blur_image(sharp, sigma, sigma_n, image_rng(Path(path).name)), sharp
 
 
-def write_blurred(sigma, limit=None):
-    """Blur every clean image and write to blurred/sigma_<sigma>/."""
+def write_blurred(sigma, sigma_n, limit=None):
+    """
+    Degrade every clean image and write to blurred/sigma_<sigma>_n<sigma_n>/.
+
+    These PNGs are what the report's figures display; the restoration itself
+    never reads them back, so the 8-bit rounding here costs nothing.
+    """
     paths = list_images()
     if limit:
         paths = paths[:limit]
     if not paths:
         raise SystemExit(f"no images found in {DATA_DIR}")
 
-    dest = BLURRED_DIR / f"sigma_{sigma:g}"
+    dest = blurred_dir(sigma, sigma_n)
     dest.mkdir(parents=True, exist_ok=True)
 
     n_k = kernel_size(sigma)
-    print(f"sigma = {sigma:g}   kernel {n_k}x{n_k}")
+    print(f"sigma = {sigma:g}   kernel {n_k}x{n_k}   "
+          f"sigma_n = {sigma_n * 255:g}/255")
     print(f"source: {DATA_DIR}")
     print(f"dest:   {dest}\n")
 
     for n, p in enumerate(paths, 1):
-        save_image(blur_image(load_image(p), sigma), dest / p.name)
+        save_image(degrade(p, sigma, sigma_n)[0], dest / p.name)
         if n % 17 == 0 or n == len(paths):
             print(f"  {n}/{len(paths)}")
 
@@ -226,7 +279,7 @@ def inverse_filter(blurry, sigma, eps=1e-2):
     return out #deblurred image
 
 
-def wiener_filter(blurry, sigma, K=3e-4):
+def wiener_filter(blurry, sigma, K=None, sigma_n=0.0):
     """
     Ghat = conj(H) F / (|H|^2 + K).
 
@@ -234,7 +287,31 @@ def wiener_filter(blurry, sigma, K=3e-4):
     zero: where |H| is large the factor tends to 1/H, and where |H| is small it
     tends to conj(H)/K, which rolls smoothly to zero instead of exploding.
     K = P_n / P_g, the noise-to-signal power ratio, taken here to be constant.
+
+    Left to itself, K is estimated per image as sigma_n^2 / var(f): the noise
+    level is a property of the sensor and the observed variance is measurable,
+    so unlike the oracle below this stays inside what a real system knows.
     """
+    if K is None:
+        # K = P_n / P_g, but neither PSD is available, so both are replaced by
+        # the variance they integrate to -- a variance in pixels and a power
+        # spectrum in frequencies are the same energy, by Parseval.
+        #
+        #   P_n -> sigma_n^2    exact: white noise is flat, so its power at any
+        #                       one frequency IS its variance, and collapsing
+        #                       the spectrum to a single number loses nothing.
+        #
+        #   P_g -> var(f)       approximate, in three separate ways.  Natural
+        #                       images are far from flat (most of their energy
+        #                       sits at low frequencies), var() measures signal
+        #                       AND noise so it overstates P_g slightly, and it
+        #                       is read off the blurred image rather than the
+        #                       sharp one.  This is why the filter under-damps
+        #                       low frequencies and over-damps high ones, and
+        #                       most of why it trails wiener_filter_oracle.
+
+        K = sigma_n ** 2 / max(float(np.var(blurry)), 1e-12)
+
     h = gaussian_h(sigma, blurry.shape[:2])     # kernel, pixels
     H = fft2(h)                                 # kernel, frequencies
     W = np.conj(H) / (np.abs(H) ** 2 + K)       # the restoration filter
@@ -250,20 +327,15 @@ def wiener_filter(blurry, sigma, K=3e-4):
     return out
 
 
-# quantisation noise from the 8-bit round trip: uniform on +/- 1/510,
-# so its variance is (1/255)^2 / 12
-QUANT_VAR = (1.0 / 255.0) ** 2 / 12.0
-
-
-def wiener_filter_oracle(blurry, sigma, sharp):
+def wiener_filter_oracle(blurry, sigma, sharp, sigma_n=0.0):
     """
     Ghat = conj(H) P_g F / (|H|^2 P_g + P_n), using the true PSDs.
 
     Instead of collapsing P_n / P_g into a single constant K, this measures both
     per frequency:
 
-        P_g = |G|^2         from the ground-truth image
-        P_n = M N var_n     flat, from the 8-bit quantisation variance
+        P_g = |G|^2           from the ground-truth image
+        P_n = M N sigma_n^2   flat, because the added noise is white
 
     P_g is the PSD of the image being recovered, so it is not available to a real
     restoration system -- this is an ORACLE, and its score is an upper bound on
@@ -273,7 +345,8 @@ def wiener_filter_oracle(blurry, sigma, sharp):
     H = fft2(h)                                 # kernel, frequencies
 
     M, N = blurry.shape[:2]
-    P_n = M * N * QUANT_VAR                     # white noise -> flat PSD
+    # white noise -> flat PSD; floored so the sigma_n = 0 case stays finite
+    P_n = max(M * N * sigma_n ** 2, 1e-12)
 
     out = np.empty_like(blurry)
     for c in range(blurry.shape[2]):
@@ -311,7 +384,13 @@ def laplacian_p(shape):
     return p
 
 
-def cls_laplacian_filter(blurry, sigma, gamma=1e-4):
+# gamma tracks the noise-to-signal ratio, but the Laplacian's |P|^2 is much
+# larger than 1 over most of the spectrum, so the constant that balances them is
+# not 1.  This multiplier is the one that maximised PSNR across sigma_n = 5..50.
+GAMMA_OVER_NSR = 8.0
+
+
+def cls_laplacian_filter(blurry, sigma, gamma=None, sigma_n=0.0):
     """
     Ghat = conj(H) F / (|H|^2 + gamma |P|^2).
 
@@ -319,8 +398,17 @@ def cls_laplacian_filter(blurry, sigma, gamma=1e-4):
     gamma |P|^2, which grows with frequency because P is a high-pass operator.
     The penalty is therefore weak on smooth content and strong on the high
     frequencies where the inverse filter would otherwise amplify error --- no
-    noise statistics are required, only a smoothness preference.
+    *spectral* noise statistics are required, only a smoothness preference and a
+    single scalar setting how hard to press it.
+
+    Left to itself gamma is set to GAMMA_OVER_NSR * sigma_n^2 / var(f), a fixed
+    multiple of the same measurable ratio the Wiener filter uses: a standing-in
+    for the textbook rule of tuning gamma until the residual matches the known
+    noise power, without the iteration.
     """
+    if gamma is None:
+        gamma = GAMMA_OVER_NSR * sigma_n ** 2 / max(float(np.var(blurry)), 1e-12)
+
     h = gaussian_h(sigma, blurry.shape[:2])     # blur kernel, pixels
     H = fft2(h)                                 # blur, frequencies
     p = laplacian_p(blurry.shape[:2])           # Laplacian, pixels
@@ -343,31 +431,22 @@ def cls_laplacian_filter(blurry, sigma, gamma=1e-4):
 # pair loading
 # ===========================================================================
 
-def load_pairs(sigma, source="disk", limit=None):
+def load_pairs(sigma, sigma_n, limit=None):
     """
-    Yield (name, blurry, sharp) triples.
+    Yield (name, degraded, sharp) triples.
 
-    source="disk"   : read the PNGs written by the blur stage (8-bit quantised)
-    source="memory" : re-blur now, keeping full float precision
+    The degradation is generated here, in float64, and handed to the filters
+    directly: there is no 8-bit round trip anywhere on this path, so the only
+    perturbation the filters have to contend with is n itself.  Seeding from the
+    file name keeps the realisation identical across stages and across runs.
     """
     sharp_paths = list_images()
     if limit:
         sharp_paths = sharp_paths[:limit]
 
-    if source == "memory":
-        for p in sharp_paths:
-            sharp = load_image(p)
-            yield p.name, blur_image(sharp, sigma), sharp
-        return
-
-    blur_dir = BLURRED_DIR / f"sigma_{sigma:g}"
-    if not blur_dir.is_dir():
-        raise SystemExit(f"{blur_dir} not found -- run:  "
-                         f"python3 degrade-deblur.py blur --sigma {sigma:g}")
     for p in sharp_paths:
-        bp = blur_dir / p.name
-        if bp.exists():
-            yield p.name, load_image(bp), load_image(p)
+        sharp = load_image(p)
+        yield p.name, blur_image(sharp, sigma, sigma_n, image_rng(p.name)), sharp
 
 
 # ===========================================================================
@@ -407,19 +486,20 @@ def save_combined(panels, path):
 # runs
 # ===========================================================================
 
-def run_deblur(sigma, source="disk", eps=1e-2, K=3e-4, gamma=1e-4,
+def run_deblur(sigma, sigma_n, eps=1e-2, K=None, gamma=None,
                limit=None, save=True, combined=True):
     n_k = kernel_size(sigma)
     print(f"sigma = {sigma:g}   kernel {n_k}x{n_k}   "
-          f"eps = {eps:g}   K = {K:g}   gamma = {gamma:g}   "
-          f"source = {source}\n")
+          f"sigma_n = {sigma_n * 255:g}/255   "
+          f"eps = {eps:g}   K = {'auto' if K is None else f'{K:g}'}   "
+          f"gamma = {'auto' if gamma is None else f'{gamma:g}'}\n")
 
     # each entry takes (degraded, ground truth); only the oracle uses the latter
     methods = [
         ("inverse",       lambda f, g: inverse_filter(f, sigma, eps)),
-        ("wiener",        lambda f, g: wiener_filter(f, sigma, K)),
-        ("wiener-oracle", lambda f, g: wiener_filter_oracle(f, sigma, g)),
-        ("cls-laplacian", lambda f, g: cls_laplacian_filter(f, sigma, gamma)),
+        ("wiener",        lambda f, g: wiener_filter(f, sigma, K, sigma_n)),
+        ("wiener-oracle", lambda f, g: wiener_filter_oracle(f, sigma, g, sigma_n)),
+        ("cls-laplacian", lambda f, g: cls_laplacian_filter(f, sigma, gamma, sigma_n)),
     ]
 
     dests = {}
@@ -433,8 +513,15 @@ def run_deblur(sigma, source="disk", eps=1e-2, K=3e-4, gamma=1e-4,
         comb = COMBINED_DIR
         comb.mkdir(parents=True, exist_ok=True)
 
+    # the degraded inputs the figures show are the ones the filters actually saw
+    deg_dir = blurred_dir(sigma, sigma_n)
+    if save:
+        deg_dir.mkdir(parents=True, exist_ok=True)
+
     rows = []
-    for name, blurry, sharp in load_pairs(sigma, source, limit):
+    for name, blurry, sharp in load_pairs(sigma, sigma_n, limit):
+        if save:
+            save_image(blurry, deg_dir / name)
         p_in, s_in = scores(blurry, sharp)
         panels = [("blurry", blurry, p_in, s_in)]
         row = [p_in, s_in]
@@ -456,18 +543,20 @@ def run_deblur(sigma, source="disk", eps=1e-2, K=3e-4, gamma=1e-4,
 
     a = np.array(rows)
     print(f"{'':22} {'PSNR':>8} {'SSIM':>8} {'ms':>7}")
-    print(f"{'blurry input':22} {a[:,0].mean():8.2f} {a[:,1].mean():8.4f}")
+    print(f"{'degraded input':22} {a[:,0].mean():8.2f} {a[:,1].mean():8.4f}")
     for i, (label, _) in enumerate(methods):
         p, s, t = a[:, 2 + 3*i], a[:, 3 + 3*i], a[:, 4 + 3*i]
         print(f"{label:22} {p.mean():8.2f} {s.mean():8.4f} {t.mean()*1000:7.0f}"
               f"   ({p.mean()-a[:,0].mean():+.2f} dB)")
     print(f"\n{len(rows)} images")
+    if save:
+        print(f"{'degraded':10} -> {deg_dir}")
     for label, d in dests.items():
         print(f"{label:10} -> {d}")
     if comb:
         print(f"{'combined':10} -> {comb}")
-    save_results(a, methods, sigma, len(rows))
-    save_panels(sigma, source=source)
+    save_results(a, methods, sigma, sigma_n, len(rows))
+    save_panels(sigma, sigma_n, eps=eps, K=K, gamma=gamma)
     return a
 
 
@@ -486,7 +575,7 @@ PRETTY = {
 }
 
 
-def save_results(a, methods, sigma, n):
+def save_results(a, methods, sigma, sigma_n, n):
     """
     Write the PSNR/SSIM chart and the matching LaTeX table into the report
     folder, both straight from the array `run_deblur` accumulated.
@@ -498,7 +587,7 @@ def save_results(a, methods, sigma, n):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    labels = ["Blurry\ninput"] + [PRETTY[l] for l, _ in methods]
+    labels = ["Degraded\ninput"] + [PRETTY[l] for l, _ in methods]
     psnr = [a[:, 0].mean()] + [a[:, 2 + 3*i].mean() for i in range(len(methods))]
     ssim = [a[:, 1].mean()] + [a[:, 3 + 3*i].mean() for i in range(len(methods))]
 
@@ -527,7 +616,8 @@ def save_results(a, methods, sigma, n):
                     ha="center", va="bottom", fontsize=8)
 
     fig.suptitle(f"Fourier-domain restoration, CBSD68 ($\\sigma$ = {sigma:g}, "
-                 f"{n} images); hatched = oracle", fontsize=9)
+                 f"$\\sigma_n$ = {sigma_n * 255:g}/255, {n} images); "
+                 f"hatched = oracle", fontsize=9)
     fig.tight_layout()
     fig.savefig(REPORT_DIR / "results.pdf")
     plt.close(fig)
@@ -537,7 +627,7 @@ def save_results(a, methods, sigma, n):
     rows = [r"\begin{tabular}{lrrrr}", r"\toprule",
             r"Method & PSNR (dB) & $\Delta$ PSNR & SSIM & ms/image \\",
             r"\midrule",
-            rf"Blurry input & {base_p:.2f} & --- & {base_s:.4f} & --- \\",
+            rf"Degraded input & {base_p:.2f} & --- & {base_s:.4f} & --- \\",
             r"\midrule"]
     names = {"inverse": "Inverse filter", "wiener": "Wiener filter",
              "wiener-oracle": "Wiener filter (oracle)",
@@ -557,19 +647,20 @@ def save_results(a, methods, sigma, n):
 SAMPLES = ["3096", "12084", "16077", "19021", "24077"]
 
 
-def save_panels(sigma, names=SAMPLES, source="disk"):
+def save_panels(sigma, sigma_n, names=SAMPLES, eps=1e-2, K=None, gamma=None):
     """
     Write sample-panels.tex: one 3x2 portrait grid per sample image, each cell
     captioned with that panel's own PSNR/SSIM.
 
-    Paths point at the PNGs the blur and deblur stages already wrote, so this
-    adds no images -- only the LaTeX that arranges them and the scores that
-    label them.
+    The degradation is regenerated here from the same name-seeded noise the
+    deblur run used, so the scores printed in the captions belong to the images
+    the paths point at.  Only the LaTeX arranging them is new.
     """
-    blur_dir = BLURRED_DIR / f"sigma_{sigma:g}"
-    # (subfolder or None for the two ends, caption, path relative to the report)
+    deg_dir = blurred_dir(sigma, sigma_n)
+    rel_deg = f"../blurred/{deg_dir.name}"
+    # (caption, path relative to the report)
     cells = [
-        ("Blurry input",              f"../blurred/sigma_{sigma:g}"),
+        ("Degraded input",            rel_deg),
         ("Inverse filter",            "../deblurred-imgs/inverse"),
         ("Wiener filter",             "../deblurred-imgs/wiener"),
         ("Wiener filter (oracle)",    "../deblurred-imgs/wiener-oracle"),
@@ -579,13 +670,14 @@ def save_panels(sigma, names=SAMPLES, source="disk"):
 
     out = []
     for n, name in enumerate(names):
-        sharp = load_image(DATA_DIR / f"{name}.png")
-        blurry = load_image(blur_dir / f"{name}.png")
+        fname = f"{name}.png"
+        sharp = load_image(DATA_DIR / fname)
+        blurry = blur_image(sharp, sigma, sigma_n, image_rng(fname))
         imgs = [blurry,
-                inverse_filter(blurry, sigma),
-                wiener_filter(blurry, sigma),
-                wiener_filter_oracle(blurry, sigma, sharp),
-                cls_laplacian_filter(blurry, sigma),
+                inverse_filter(blurry, sigma, eps),
+                wiener_filter(blurry, sigma, K, sigma_n),
+                wiener_filter_oracle(blurry, sigma, sharp, sigma_n),
+                cls_laplacian_filter(blurry, sigma, gamma, sigma_n),
                 sharp]
 
         if n:                                   # break between grids, not before
@@ -604,7 +696,8 @@ def save_panels(sigma, names=SAMPLES, source="disk"):
             out.append(r"  \end{minipage}" + ("%" if i % 2 == 0 else ""))
             out.append(r"  \hfill" if i % 2 == 0 else r"  \\[8pt]")
         out.append(r"  \captionof{figure}{\texttt{" + name + r".png} restored from "
-                   rf"$\sigma = {sigma:g}$ blur. Read left to right, top to bottom.}}")
+                   rf"$\sigma = {sigma:g}$ blur with $\sigma_n = {sigma_n * 255:g}$ "
+                   rf"noise. Read left to right, top to bottom.}}")
         out.append(r"\end{center}")
         out.append("")
 
@@ -613,13 +706,16 @@ def save_panels(sigma, names=SAMPLES, source="disk"):
           f"({len(names)} grids)")
 
 
-def run_sweep(sigma, source="disk", limit=None):
-    pairs = list(load_pairs(sigma, source, limit))
+def run_sweep(sigma, sigma_n, limit=None):
+    pairs = list(load_pairs(sigma, sigma_n, limit))
     base = np.array([scores(b, s) for _, b, s in pairs])
-    print(f"sigma = {sigma:g}   source = {source}   {len(pairs)} images\n")
+    print(f"sigma = {sigma:g}   sigma_n = {sigma_n * 255:g}/255   "
+          f"{len(pairs)} images\n")
     print(f"{'eps':>10} {'PSNR':>8} {'SSIM':>8}")
-    print(f"{'(blurry)':>10} {base[:,0].mean():8.2f} {base[:,1].mean():8.4f}")
-    for eps in [1e-1, 1e-2, 1e-3, 1e-4, 1e-6, 1e-10]:
+    print(f"{'(degraded)':>10} {base[:,0].mean():8.2f} {base[:,1].mean():8.4f}")
+    # spread either side of |H|'s useful range: even the best eps stays below
+    # the degraded input, which is the point the sweep is there to make
+    for eps in [8e-1, 5e-1, 3e-1, 1e-1, 1e-2, 1e-3, 1e-4, 1e-6, 1e-10]:
         r = np.array([scores(inverse_filter(b, sigma, eps), s)
                       for _, b, s in pairs])
         print(f"{eps:10.0e} {r[:,0].mean():8.2f} {r[:,1].mean():8.4f}")
@@ -666,6 +762,16 @@ def run_test():
     print("\nchecks: H(0,0) == 1, mean drift ~ 0, grad ratio < 1 and falling,")
     print("invertible (max abs error of noiseless H-division) ~ 0")
 
+    # the noise the degradation adds must have the standard deviation asked for
+    print(f"\n{'sigma_n':>9} {'measured':>10} {'ratio':>8}")
+    clean = blur_image(sharp, 2.0)
+    for s255 in [5.0, 15.0, 25.0, 50.0]:
+        sn = s255 / 255.0
+        noisy = blur_image(sharp, 2.0, sn, image_rng(paths[0].name))
+        meas = float(np.std(noisy - clean)) * 255.0
+        print(f"{s255:9.1f} {meas:10.2f} {meas / s255:8.4f}")
+    print("\nchecks: measured / requested ~ 1")
+
 
 # ===========================================================================
 # cli
@@ -678,24 +784,31 @@ def main():
                     choices=["blur", "deblur", "sweep", "test"],
                     help="blur: write degraded images; deblur: restore them; "
                          "sweep: vary epsilon; test: correctness checks")
-    ap.add_argument("--sigma", type=float, default=2.0)
+    ap.add_argument("--sigma", type=float, default=2.0,
+                    help="blur width, in pixels")
+    ap.add_argument("--sigma-n", type=float, default=SIGMA_N_DEFAULT,
+                    help="noise standard deviation on the 0-255 scale "
+                         f"(default {SIGMA_N_DEFAULT:g})")
     ap.add_argument("--eps", type=float, default=1e-2)
-    ap.add_argument("-K", type=float, default=3e-4)
-    ap.add_argument("--gamma", type=float, default=1e-4)
-    ap.add_argument("--source", choices=["disk", "memory"], default="disk")
+    ap.add_argument("-K", type=float, default=None,
+                    help="Wiener NSR constant; default estimates it per image")
+    ap.add_argument("--gamma", type=float, default=None,
+                    help="CLS smoothness weight; default scales it with sigma_n")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--no-save", action="store_true")
     ap.add_argument("--no-combined", action="store_true")
     args = ap.parse_args()
 
+    sigma_n = args.sigma_n / 255.0              # report in 0-255, compute in [0,1]
+
     if args.stage == "blur":
-        write_blurred(args.sigma, args.limit)
+        write_blurred(args.sigma, sigma_n, args.limit)
     elif args.stage == "deblur":
-        run_deblur(args.sigma, args.source, args.eps, args.K, args.gamma,
+        run_deblur(args.sigma, sigma_n, args.eps, args.K, args.gamma,
                    args.limit,
                    save=not args.no_save, combined=not args.no_combined)
     elif args.stage == "sweep":
-        run_sweep(args.sigma, args.source, args.limit)
+        run_sweep(args.sigma, sigma_n, args.limit)
     elif args.stage == "test":
         run_test()
 

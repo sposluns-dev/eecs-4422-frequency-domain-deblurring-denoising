@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  2 AUG 2026 13:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.1)  9 AUG 2026 14:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -487,56 +487,57 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 /local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
-] [2] [3] (./results-table.tex)
+] [2] [3] [4] (./results-table.tex)
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 322.
+(caption)                particular \caption on input line 455.
 See the caption package documentation for explanation.
 
-<results.pdf, id=89, 650.43pt x 274.626pt>
+<results.pdf, id=104, 650.43pt x 274.626pt>
 File: results.pdf Graphic file (type pdf)
 <use results.pdf>
-Package pdftex.def Info: results.pdf  used on input line 328.
+Package pdftex.def Info: results.pdf  used on input line 461.
 (pdftex.def)             Requested size: 387.54726pt x 163.63287pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 330.
+(caption)                particular \caption on input line 463.
 See the caption package documentation for explanation.
 
-[4
+[5
 
 
  <./results.pdf>] (./sample-panels.tex
-<../blurred/sigma_2/3096.png, id=159, 482.80376pt x 322.20375pt>
-File: ../blurred/sigma_2/3096.png Graphic file (type png)
-<use ../blurred/sigma_2/3096.png>
-Package pdftex.def Info: ../blurred/sigma_2/3096.png  used on input line 3.
+<../blurred/sigma_2_n15/3096.png, id=175, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2_n15/3096.png Graphic file (type png)
+<use ../blurred/sigma_2_n15/3096.png>
+Package pdftex.def Info: ../blurred/sigma_2_n15/3096.png  used on input line 3.
+
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/inverse/3096.png, id=160, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/inverse/3096.png, id=176, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/inverse/3096.png Graphic file (type png)
 <use ../deblurred-imgs/inverse/3096.png>
 Package pdftex.def Info: ../deblurred-imgs/inverse/3096.png  used on input line
  8.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener/3096.png, id=161, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener/3096.png, id=177, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener/3096.png Graphic file (type png)
 <use ../deblurred-imgs/wiener/3096.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener/3096.png  used on input line 
 13.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener-oracle/3096.png, id=162, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener-oracle/3096.png, id=178, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener-oracle/3096.png Graphic file (type png)
 <use ../deblurred-imgs/wiener-oracle/3096.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/3096.png  used on inpu
 t line 18.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/cls-laplacian/3096.png, id=163, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/cls-laplacian/3096.png, id=179, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/cls-laplacian/3096.png Graphic file (type png)
 <use ../deblurred-imgs/cls-laplacian/3096.png>
 Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/3096.png  used on inpu
 t line 23.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../../CBSD68/3096.png, id=164, 482.80376pt x 322.20375pt>
+<../../CBSD68/3096.png, id=180, 482.80376pt x 322.20375pt>
 File: ../../CBSD68/3096.png Graphic file (type png)
 <use ../../CBSD68/3096.png>
 Package pdftex.def Info: ../../CBSD68/3096.png  used on input line 28.
@@ -547,42 +548,43 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 32.
 See the caption package documentation for explanation.
 
-[5
+[6
 
- <../blurred/sigma_2/3096.png (PNG copy)> <../deblurred-imgs/inverse/3096.png (
-PNG copy)> <../deblurred-imgs/wiener/3096.png (PNG copy)> <../deblurred-imgs/wi
-ener-oracle/3096.png (PNG copy)> <../deblurred-imgs/cls-laplacian/3096.png (PNG
- copy)> <../../CBSD68/3096.png (PNG copy)>]
-<../blurred/sigma_2/12084.png, id=171, 482.80376pt x 322.20375pt>
-File: ../blurred/sigma_2/12084.png Graphic file (type png)
-<use ../blurred/sigma_2/12084.png>
-Package pdftex.def Info: ../blurred/sigma_2/12084.png  used on input line 38.
+ <../blurred/sigma_2_n15/3096.png (PNG copy)> <../deblurred-imgs/inverse/3096.p
+ng (PNG copy)> <../deblurred-imgs/wiener/3096.png (PNG copy)> <../deblurred-img
+s/wiener-oracle/3096.png (PNG copy)> <../deblurred-imgs/cls-laplacian/3096.png 
+(PNG copy)> <../../CBSD68/3096.png (PNG copy)>]
+<../blurred/sigma_2_n15/12084.png, id=188, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2_n15/12084.png Graphic file (type png)
+<use ../blurred/sigma_2_n15/12084.png>
+Package pdftex.def Info: ../blurred/sigma_2_n15/12084.png  used on input line 3
+8.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/inverse/12084.png, id=172, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/inverse/12084.png, id=189, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/inverse/12084.png Graphic file (type png)
 <use ../deblurred-imgs/inverse/12084.png>
 Package pdftex.def Info: ../deblurred-imgs/inverse/12084.png  used on input lin
 e 43.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener/12084.png, id=173, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener/12084.png, id=190, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener/12084.png Graphic file (type png)
 <use ../deblurred-imgs/wiener/12084.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener/12084.png  used on input line
  48.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener-oracle/12084.png, id=174, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener-oracle/12084.png, id=191, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener-oracle/12084.png Graphic file (type png)
 <use ../deblurred-imgs/wiener-oracle/12084.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/12084.png  used on inp
 ut line 53.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/cls-laplacian/12084.png, id=175, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/cls-laplacian/12084.png, id=192, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/cls-laplacian/12084.png Graphic file (type png)
 <use ../deblurred-imgs/cls-laplacian/12084.png>
 Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/12084.png  used on inp
 ut line 58.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../../CBSD68/12084.png, id=176, 482.80376pt x 322.20375pt>
+<../../CBSD68/12084.png, id=193, 482.80376pt x 322.20375pt>
 File: ../../CBSD68/12084.png Graphic file (type png)
 <use ../../CBSD68/12084.png>
 Package pdftex.def Info: ../../CBSD68/12084.png  used on input line 63.
@@ -593,42 +595,43 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 67.
 See the caption package documentation for explanation.
 
-[6
+[7
 
- <../blurred/sigma_2/12084.png (PNG copy)> <../deblurred-imgs/inverse/12084.png
- (PNG copy)> <../deblurred-imgs/wiener/12084.png (PNG copy)> <../deblurred-imgs
-/wiener-oracle/12084.png (PNG copy)> <../deblurred-imgs/cls-laplacian/12084.png
- (PNG copy)> <../../CBSD68/12084.png (PNG copy)>]
-<../blurred/sigma_2/16077.png, id=182, 482.80376pt x 322.20375pt>
-File: ../blurred/sigma_2/16077.png Graphic file (type png)
-<use ../blurred/sigma_2/16077.png>
-Package pdftex.def Info: ../blurred/sigma_2/16077.png  used on input line 73.
+ <../blurred/sigma_2_n15/12084.png (PNG copy)> <../deblurred-imgs/inverse/12084
+.png (PNG copy)> <../deblurred-imgs/wiener/12084.png (PNG copy)> <../deblurred-
+imgs/wiener-oracle/12084.png (PNG copy)> <../deblurred-imgs/cls-laplacian/12084
+.png (PNG copy)> <../../CBSD68/12084.png (PNG copy)>]
+<../blurred/sigma_2_n15/16077.png, id=200, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2_n15/16077.png Graphic file (type png)
+<use ../blurred/sigma_2_n15/16077.png>
+Package pdftex.def Info: ../blurred/sigma_2_n15/16077.png  used on input line 7
+3.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/inverse/16077.png, id=183, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/inverse/16077.png, id=201, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/inverse/16077.png Graphic file (type png)
 <use ../deblurred-imgs/inverse/16077.png>
 Package pdftex.def Info: ../deblurred-imgs/inverse/16077.png  used on input lin
 e 78.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener/16077.png, id=184, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener/16077.png, id=202, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener/16077.png Graphic file (type png)
 <use ../deblurred-imgs/wiener/16077.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener/16077.png  used on input line
  83.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener-oracle/16077.png, id=185, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener-oracle/16077.png, id=203, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener-oracle/16077.png Graphic file (type png)
 <use ../deblurred-imgs/wiener-oracle/16077.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/16077.png  used on inp
 ut line 88.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/cls-laplacian/16077.png, id=186, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/cls-laplacian/16077.png, id=204, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/cls-laplacian/16077.png Graphic file (type png)
 <use ../deblurred-imgs/cls-laplacian/16077.png>
 Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/16077.png  used on inp
 ut line 93.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../../CBSD68/16077.png, id=187, 482.80376pt x 322.20375pt>
+<../../CBSD68/16077.png, id=205, 482.80376pt x 322.20375pt>
 File: ../../CBSD68/16077.png Graphic file (type png)
 <use ../../CBSD68/16077.png>
 Package pdftex.def Info: ../../CBSD68/16077.png  used on input line 98.
@@ -639,42 +642,43 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 102.
 See the caption package documentation for explanation.
 
-[7
+[8
 
- <../blurred/sigma_2/16077.png (PNG copy)> <../deblurred-imgs/inverse/16077.png
- (PNG copy)> <../deblurred-imgs/wiener/16077.png (PNG copy)> <../deblurred-imgs
-/wiener-oracle/16077.png (PNG copy)> <../deblurred-imgs/cls-laplacian/16077.png
- (PNG copy)> <../../CBSD68/16077.png (PNG copy)>]
-<../blurred/sigma_2/19021.png, id=194, 482.80376pt x 322.20375pt>
-File: ../blurred/sigma_2/19021.png Graphic file (type png)
-<use ../blurred/sigma_2/19021.png>
-Package pdftex.def Info: ../blurred/sigma_2/19021.png  used on input line 108.
+ <../blurred/sigma_2_n15/16077.png (PNG copy)> <../deblurred-imgs/inverse/16077
+.png (PNG copy)> <../deblurred-imgs/wiener/16077.png (PNG copy)> <../deblurred-
+imgs/wiener-oracle/16077.png (PNG copy)> <../deblurred-imgs/cls-laplacian/16077
+.png (PNG copy)> <../../CBSD68/16077.png (PNG copy)>]
+<../blurred/sigma_2_n15/19021.png, id=211, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2_n15/19021.png Graphic file (type png)
+<use ../blurred/sigma_2_n15/19021.png>
+Package pdftex.def Info: ../blurred/sigma_2_n15/19021.png  used on input line 1
+08.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/inverse/19021.png, id=195, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/inverse/19021.png, id=212, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/inverse/19021.png Graphic file (type png)
 <use ../deblurred-imgs/inverse/19021.png>
 Package pdftex.def Info: ../deblurred-imgs/inverse/19021.png  used on input lin
 e 113.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener/19021.png, id=196, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener/19021.png, id=213, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener/19021.png Graphic file (type png)
 <use ../deblurred-imgs/wiener/19021.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener/19021.png  used on input line
  118.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener-oracle/19021.png, id=197, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener-oracle/19021.png, id=214, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener-oracle/19021.png Graphic file (type png)
 <use ../deblurred-imgs/wiener-oracle/19021.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/19021.png  used on inp
 ut line 123.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/cls-laplacian/19021.png, id=198, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/cls-laplacian/19021.png, id=215, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/cls-laplacian/19021.png Graphic file (type png)
 <use ../deblurred-imgs/cls-laplacian/19021.png>
 Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/19021.png  used on inp
 ut line 128.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../../CBSD68/19021.png, id=199, 482.80376pt x 322.20375pt>
+<../../CBSD68/19021.png, id=216, 482.80376pt x 322.20375pt>
 File: ../../CBSD68/19021.png Graphic file (type png)
 <use ../../CBSD68/19021.png>
 Package pdftex.def Info: ../../CBSD68/19021.png  used on input line 133.
@@ -685,42 +689,43 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 137.
 See the caption package documentation for explanation.
 
-[8
+[9
 
- <../blurred/sigma_2/19021.png (PNG copy)> <../deblurred-imgs/inverse/19021.png
- (PNG copy)> <../deblurred-imgs/wiener/19021.png (PNG copy)> <../deblurred-imgs
-/wiener-oracle/19021.png (PNG copy)> <../deblurred-imgs/cls-laplacian/19021.png
- (PNG copy)> <../../CBSD68/19021.png (PNG copy)>]
-<../blurred/sigma_2/24077.png, id=206, 482.80376pt x 322.20375pt>
-File: ../blurred/sigma_2/24077.png Graphic file (type png)
-<use ../blurred/sigma_2/24077.png>
-Package pdftex.def Info: ../blurred/sigma_2/24077.png  used on input line 143.
+ <../blurred/sigma_2_n15/19021.png (PNG copy)> <../deblurred-imgs/inverse/19021
+.png (PNG copy)> <../deblurred-imgs/wiener/19021.png (PNG copy)> <../deblurred-
+imgs/wiener-oracle/19021.png (PNG copy)> <../deblurred-imgs/cls-laplacian/19021
+.png (PNG copy)> <../../CBSD68/19021.png (PNG copy)>]
+<../blurred/sigma_2_n15/24077.png, id=222, 482.80376pt x 322.20375pt>
+File: ../blurred/sigma_2_n15/24077.png Graphic file (type png)
+<use ../blurred/sigma_2_n15/24077.png>
+Package pdftex.def Info: ../blurred/sigma_2_n15/24077.png  used on input line 1
+43.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/inverse/24077.png, id=207, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/inverse/24077.png, id=223, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/inverse/24077.png Graphic file (type png)
 <use ../deblurred-imgs/inverse/24077.png>
 Package pdftex.def Info: ../deblurred-imgs/inverse/24077.png  used on input lin
 e 148.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener/24077.png, id=208, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener/24077.png, id=224, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener/24077.png Graphic file (type png)
 <use ../deblurred-imgs/wiener/24077.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener/24077.png  used on input line
  153.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/wiener-oracle/24077.png, id=209, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/wiener-oracle/24077.png, id=225, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/wiener-oracle/24077.png Graphic file (type png)
 <use ../deblurred-imgs/wiener-oracle/24077.png>
 Package pdftex.def Info: ../deblurred-imgs/wiener-oracle/24077.png  used on inp
 ut line 158.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../deblurred-imgs/cls-laplacian/24077.png, id=210, 482.80376pt x 322.20375pt>
+<../deblurred-imgs/cls-laplacian/24077.png, id=226, 482.80376pt x 322.20375pt>
 File: ../deblurred-imgs/cls-laplacian/24077.png Graphic file (type png)
 <use ../deblurred-imgs/cls-laplacian/24077.png>
 Package pdftex.def Info: ../deblurred-imgs/cls-laplacian/24077.png  used on inp
 ut line 163.
 (pdftex.def)             Requested size: 238.48886pt x 159.15948pt.
-<../../CBSD68/24077.png, id=211, 482.80376pt x 322.20375pt>
+<../../CBSD68/24077.png, id=227, 482.80376pt x 322.20375pt>
 File: ../../CBSD68/24077.png Graphic file (type png)
 <use ../../CBSD68/24077.png>
 Package pdftex.def Info: ../../CBSD68/24077.png  used on input line 168.
@@ -731,12 +736,12 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 172.
 See the caption package documentation for explanation.
 
-) [9
+) [10
 
- <../blurred/sigma_2/24077.png (PNG copy)> <../deblurred-imgs/inverse/24077.png
- (PNG copy)> <../deblurred-imgs/wiener/24077.png (PNG copy)> <../deblurred-imgs
-/wiener-oracle/24077.png (PNG copy)> <../deblurred-imgs/cls-laplacian/24077.png
- (PNG copy)> <../../CBSD68/24077.png (PNG copy)>]
+ <../blurred/sigma_2_n15/24077.png (PNG copy)> <../deblurred-imgs/inverse/24077
+.png (PNG copy)> <../deblurred-imgs/wiener/24077.png (PNG copy)> <../deblurred-
+imgs/wiener-oracle/24077.png (PNG copy)> <../deblurred-imgs/cls-laplacian/24077
+.png (PNG copy)> <../../CBSD68/24077.png (PNG copy)>]
 (./frequency-domain-deblurring.aux)
  ***********
 LaTeX2e <2025-11-01>
@@ -747,13 +752,13 @@ nged.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 14943 strings out of 467525
- 250747 string characters out of 5418983
- 726330 words of memory out of 5000000
+ 14955 strings out of 467525
+ 251015 string characters out of 5418983
+ 727330 words of memory out of 5000000
  43590 multiletter control sequences out of 15000+600000
  654015 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,14n,98p,317b,452s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,14n,98p,317b,458s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
@@ -769,10 +774,10 @@ exlive/2026/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2
 026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026/texmf-
 dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts
 /type1/urw/times/utmri8a.pfb>
-Output written on frequency-domain-deblurring.pdf (9 pages, 8206067 bytes).
+Output written on frequency-domain-deblurring.pdf (10 pages, 7436761 bytes).
 PDF statistics:
- 299 PDF objects out of 1000 (max. 8388607)
- 175 compressed objects within 2 object streams
- 77 named destinations out of 1000 (max. 500000)
+ 317 PDF objects out of 1000 (max. 8388607)
+ 191 compressed objects within 2 object streams
+ 89 named destinations out of 1000 (max. 500000)
  156 words of extra memory for PDF output out of 10000 (max. 10000000)
 

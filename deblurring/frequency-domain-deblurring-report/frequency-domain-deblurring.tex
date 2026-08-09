@@ -66,7 +66,33 @@ Applies a convolution:
 redistributes intensity without changing overall brightness. The kernel is evaluated on an
 odd window of half-width $\lceil 3\sigma \rceil$, beyond which its values are negligible.
 
-\noindent The filter is applied separately.
+\noindent The filter is applied separately to each of the three colour channels, and the
+convolution is \emph{circular}: the image is treated as periodic, so the same $H$ that
+produced the blur can invert it exactly. Zero- or reflection-padded convolution would
+introduce boundary behaviour that no frequency-domain filter could undo.
+
+\subsubsection*{What the noise term is}
+
+$n(x,y)$ is additive white Gaussian noise, drawn independently per pixel and per channel
+after the blur has been applied:
+\begin{align}
+  n(x,y) &\sim \mathcal{N}\!\left(0,\ \sigma_{n}^{2}\right), \qquad
+  \mathbb{E}\!\left[n\right] = 0
+\end{align}
+
+\noindent Being white, its power is spread evenly over the spectrum, so $P_{n}$ is flat ---
+the fact both restoration filters below rely on. Noise strength is quoted on the $0$--$255$
+scale used throughout the denoising literature, where $\sigma_{n} = 15$, $25$ and $50$ are
+the standard CBSD68 operating points; images are held as floats in $[0,1]$, so the value
+used in computation is $\sigma_{n}/255$. Results here use $\sigma_{n} = 15$ unless stated.
+
+\noindent Degradation is carried out in double precision and the resulting array is passed
+to the restoration filters directly, with no intermediate 8-bit write. The perturbation the
+filters face is therefore exactly the $n$ the model above specifies, and nothing else; the
+PNGs in \texttt{blurred/} exist only to be displayed in this report. The blurred image is
+clipped to $[0,1]$ before $n$ is added --- a non-negative unit-sum kernel cannot leave that
+range, so this removes float round-off only --- and the sum is left unclipped, so $n$
+remains exactly Gaussian.
 
 \newpage
 \subsection*{Inverse filter}
@@ -84,7 +110,8 @@ frequency domain:
   F = H\,G + N
 \end{align}
 
-\noindent Considering the Fourier transforms of $g$, $f$ and $h$, (we assume $\text{noise} = 0$) :
+\noindent Considering the Fourier transforms of $g$, $f$ and $h$, and assuming for the
+moment that $N = 0$:
 
 \begin{align}
   G(u,v) &= \text{the sharp image to recover,} \\
@@ -109,6 +136,14 @@ $\varepsilon$ before dividing (to avoid division by 0):
   \end{cases}
   \qquad \varepsilon = 10^{-2}
 \end{align}
+
+\noindent The assumption $N = 0$ is false by construction here, and the consequence is
+severe. Dividing $F = HG + N$ by $H$ returns $G + N/H$: the noise is divided by the same
+vanishing $|H|$, so wherever the blur has destroyed signal the filter amplifies noise
+instead of recovering detail. The $\varepsilon$-floor bounds that amplification by
+$1/\varepsilon$ but cannot prevent it, and no choice of $\varepsilon$ escapes the trade-off
+--- lowering it amplifies more noise, raising it leaves more blur. This filter is included
+as the baseline that motivates the two that follow, not as a working method.
 
 \subsubsection*{Steps}
 
@@ -164,7 +199,13 @@ and the noise has zero mean:
      = 0
 \end{align}
 
-\noindent Thus:
+\noindent Dropping it leaves the two remaining terms:
+\begin{align}
+  P_{f} &= \left|H\right|^{2}\mathbb{E}\!\left[\left|G\right|^{2}\right]
+           + \mathbb{E}\!\left[\left|N\right|^{2}\right]
+\end{align}
+
+\noindent which are $P_{g}$ and $P_{n}$ as defined above. Thus:
 \begin{align}
   P_{f} &= \left|H\right|^{2} P_{g} + P_{n}
 \end{align}
@@ -175,7 +216,32 @@ still depended on the data, adjusting $W$ could remove more of it.
   \mathbb{E}\!\left[\left(W F - G\right) F^{*}\right] &= 0
 \end{align}
 
-\noindent Rearranging, then substituting $F = H G + N$ and dropping the cross term as before:
+\noindent Expanding the product and splitting the expectation, $W$ being a deterministic
+scalar at each frequency:
+\begin{align}
+  \mathbb{E}\!\left[W \left|F\right|^{2}\right]
+    - \mathbb{E}\!\left[G F^{*}\right] &= 0 \nonumber \\
+  W \,\mathbb{E}\!\left[\left|F\right|^{2}\right]
+    &= \mathbb{E}\!\left[G F^{*}\right]
+\end{align}
+
+\noindent so that
+\begin{align}
+  W &= \frac{\mathbb{E}\!\left[G F^{*}\right]}{\mathbb{E}\!\left[\left|F\right|^{2}\right]}
+\end{align}
+
+\noindent The denominator is $P_{f}$, already found above. For the numerator, substitute
+$F^{*} = \left(H G + N\right)^{*} = H^{*} G^{*} + N^{*}$:
+\begin{align}
+  \mathbb{E}\!\left[G F^{*}\right]
+    &= \mathbb{E}\!\left[G \left(H^{*} G^{*} + N^{*}\right)\right] \nonumber \\
+    &= H^{*} \mathbb{E}\!\left[\left|G\right|^{2}\right]
+       + \mathbb{E}\!\left[G N^{*}\right] \nonumber \\
+    &= H^{*} P_{g}
+\end{align}
+
+\noindent the second term vanishing by the same argument as before: $G$ and $N$ are
+independent and $\mathbb{E}\!\left[N^{*}\right] = 0$. Substituting both:
 \begin{align}
   W &= \frac{\mathbb{E}\!\left[G F^{*}\right]}{\mathbb{E}\!\left[\left|F\right|^{2}\right]}
      = \frac{H^{*} P_{g}}{P_{f}}
@@ -183,14 +249,61 @@ still depended on the data, adjusting $W$ could remove more of it.
 \end{align}
 
 \noindent That is, $W \approx 1/H$ where the signal dominates and $W \approx 0$ where the
-noise does. Writing $K = P_{n}/P_{g}$:
+noise does.
+
+\noindent $P_{g}$ appears in both the numerator and the denominator, so dividing through by
+it removes it from the numerator entirely and leaves the two PSDs appearing only as their
+ratio:
 \begin{align}
-  \hat{G}(u,v) &= \frac{H^{*}(u,v)}{\left|H(u,v)\right|^{2} + K}\;F(u,v),
-  \qquad K = 3 \times 10^{-4}
+  W &= \frac{H^{*} P_{g}}{\left|H\right|^{2} P_{g} + P_{n}}
+     = \frac{H^{*}}{\left|H\right|^{2} + \dfrac{P_{n}}{P_{g}}}
+\end{align}
+
+\noindent This is the step that makes the filter usable: the individual spectra are
+unknown, but only their ratio is now required.
+
+\medskip
+
+\noindent Considering $P_{n} / P_{g}$: \emph{Why do you sub $\sigma_{n}^{2}$ for $P_{n}$ and $\operatorname{Var}(f)$ for
+$P_{g}$?}
+
+\medskip
+
+\noindent Because the two are the same quantity viewed from either domain. By Parseval's
+theorem the total energy of a zero-mean signal is the same computed over pixels or over
+frequencies:
+\begin{align}
+  \sum_{x,y} \left|s(x,y)\right|^{2}
+    &= \frac{1}{MN} \sum_{u,v} \left|S(u,v)\right|^{2}
+\end{align}
+
+\noindent For the noise the substitution is exact. White noise carries equal power at every
+frequency, so its per-frequency power is simply its variance --- a single number is not an
+approximation, it is the entire spectrum:
+\begin{align}
+  P_{n}(u,v) &= \sigma_{n}^{2} \qquad \text{for all } (u,v)
+\end{align}
+
+\noindent For the image it is an approximation. $\operatorname{Var}(f)$ is the total power
+of the observation spread across all frequencies, whereas $P_{g}$ is strongly
+frequency-dependent: natural images concentrate most of their energy at low frequencies and
+carry very little at high ones. Replacing that curve with its average is exactly what
+treating $K$ as constant assumes, and it is the reason the practical filter under-damps low
+frequencies and over-damps high ones relative to the oracle described below.
+
+\medskip
+
+\noindent Writing $K = P_{n}/P_{g}$ for that ratio:
+\begin{align}
+  W(u,v) &= \frac{H^{*}(u,v)}{\left|H(u,v)\right|^{2} + K}
+\end{align}
+
+\noindent and applying it, $\hat{G} = W F$:
+\begin{align}
+  \hat{G}(u,v) &= \frac{H^{*}(u,v)}{\left|H(u,v)\right|^{2} + K}\;F(u,v)
 \end{align}
 
 \noindent The denominator cannot reach zero, so no $\varepsilon$-floor is needed;
-$K \to 0$ recovers the inverse filter.
 
 \subsubsection*{Steps}
 
@@ -206,10 +319,15 @@ $K \to 0$ recovers the inverse filter.
     \end{enumerate}
 \end{enumerate}
 
-\noindent \emph{Note:} both the estimation of $K = P_{n}/P_{g}$ and the actual oracle values
-from original image are used in comparison in the functions \texttt{wiener\_filter} and
-\texttt{wiener\_filter\_oracle}.
+\noindent \emph{Note:} both the estimate above and the true per-frequency PSDs are run, as
+\texttt{wiener\_filter} and \texttt{wiener\_filter\_oracle}. The oracle keeps the ratio
+$P_{n}/P_{g}$ rather than collapsing it, taking $P_{g} = |G|^{2}$ from the ground-truth
+image and $P_{n} = MN\sigma_{n}^{2}$, flat because the noise is white. Since $P_{g}$
+requires the image being recovered, the oracle is an upper bound on what a Wiener filter
+could achieve, not an achievable result; the gap between the two rows is the cost of not
+knowing the signal spectrum.
 
+% noise sweep σ_n ∈ {5, 15, 25, 50}, on the 0–255 scale.
 
 \newpage
 \subsection*{Constrained least squares (Laplacian)}
@@ -267,8 +385,7 @@ response: the operator measures curvature only, and is blind to brightness.
 the combined objective to zero gives, in the frequency domain:
 \begin{align}
   \hat{G}(u,v) &= \frac{H^{*}(u,v)}
-                       {\left|H(u,v)\right|^{2} + \gamma\left|P(u,v)\right|^{2}}\;F(u,v),
-  \qquad \gamma = 10^{-4}
+                       {\left|H(u,v)\right|^{2} + \gamma\left|P(u,v)\right|^{2}}\;F(u,v)
 \end{align}
 
 \noindent where $P = \mathcal{F}\{p\}$. This is the Wiener filter with the constant $K$
@@ -281,8 +398,23 @@ frequency:
     &&\text{maximal penalty at the highest frequencies.}
 \end{align}
 
-\noindent So the damping is applied exactly where the inverse filter fails, and no noise
-statistics are required --- only the assumption that the original image is smooth.
+\noindent So the damping is applied exactly where the inverse filter fails, and no
+\emph{spectral} noise statistics are required --- only the assumption that the original
+image is smooth, plus a single scalar setting how hard to press it.
+
+\noindent That scalar still has to come from somewhere. The constraint above fixes it in
+principle: $\gamma$ should be the value at which the residual $\lVert f - h * \hat{g}
+\rVert^{2}$ equals the known noise power, found by iteration. Here it is instead set
+directly, as a fixed multiple of the same measurable ratio the Wiener filter uses:
+\begin{align}
+  \gamma &= c\,\frac{\sigma_{n}^{2}}{\operatorname{Var}(f)}, \qquad c = 8
+\end{align}
+
+\noindent The multiplier is needed because $\left|P\right|^{2}$ reaches $64$ rather than
+$1$, so $\gamma$ and $K$ are not on the same scale; $c = 8$ was chosen by sweeping $\gamma$
+against PSNR at $\sigma_{n} = 5, 15, 25, 50$ and taking a value near the optimum at every
+level. PSNR is flat enough around the peak that the loss against a per-level optimum is
+under $0.2$\,dB, and this avoids re-tuning by hand whenever $\sigma_{n}$ changes.
 
 \subsubsection*{Steps}
 
@@ -309,17 +441,19 @@ statistics are required --- only the assumption that the original image is smoot
 
 \subsection*{Results}
 
-All four filters are run over the same 68 CBSD68 images, blurred with $\sigma = 2$ and
-written to 8-bit PNG, so the only noise present is the quantisation of that round trip.
-Each restored image is clipped to $[0,1]$ before scoring. PSNR measures squared error;
-SSIM compares local mean, contrast and correlation over a $7 \times 7$ window, so the
-two disagree where a method trades error for structure.
+All four filters are run over the same 68 CBSD68 images, degraded with $\sigma = 2$ blur and
+$\sigma_{n} = 15$ additive white Gaussian noise. Every filter sees the identical noise
+realisation, drawn from a generator seeded by file name, so the comparison is not confounded
+by the draw. Each restored image is clipped to $[0,1]$ before scoring. PSNR measures squared
+error; SSIM compares local mean, contrast and correlation over a $7 \times 7$ window, so the
+two disagree where a method trades error for structure. Runtimes are per image, averaged
+over the set, and exclude file I/O.
 
 \vspace{1em}
 
 \begin{center}
   \input{results-table}
-  \captionof{table}{Mean PSNR and SSIM over 68 images, $\sigma = 2$.}
+  \captionof{table}{Mean PSNR and SSIM over 68 images, $\sigma = 2$, $\sigma_{n} = 15$.}
 \end{center}
 
 \vspace{1em}
@@ -329,6 +463,17 @@ two disagree where a method trades error for structure.
   \captionof{figure}{The same figures. The oracle (hatched) uses the ground-truth
   $P_{g}$, so it is an upper bound rather than an achievable result.}
 \end{center}
+
+\vspace{1em}
+
+\noindent Three things stand out. The inverse filter lands roughly $16$\,dB \emph{below} its
+own input: with $N \neq 0$ the division amplifies noise faster than it removes blur, and the
+$\varepsilon$-floor only bounds the damage. The two damped filters both beat the degraded
+input, and constrained least squares comes within $0.5$\,dB of the oracle while using no
+knowledge of the ground truth --- the smoothness prior turns out to be a close stand-in for
+the true $P_{g}$ on natural images. Runtimes are within a few milliseconds of each other,
+since all four are dominated by the same two FFTs per channel; the oracle is slower only
+because it transforms the ground-truth image as well.
 
 
 
